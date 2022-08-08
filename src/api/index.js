@@ -34,7 +34,7 @@ export async function testUrls (rpcEndpoint, tesseraEndpoint) {
   if (!rpcEndpoint) {
     throw new Error('RPC url must not be blank.')
   }
-  try {
+  // try {
     if (rpcEndpoint.startsWith('http')) {
       const [url, config] = prepareForAxiosCall(rpcEndpoint)
       // test with axios because we get more detailed errors back than web3
@@ -47,18 +47,18 @@ export async function testUrls (rpcEndpoint, tesseraEndpoint) {
     const testWeb3 = createWeb3(rpcEndpoint)
     // await testWeb3.eth.chainId
 
-  } catch (e) {
-    if (e.response) {
-      if(e.response.status === 401) {
-        throw new Error(`401 Unauthorized. Did you include Basic Auth credentials in the URL? (https://username:password@example.com)`)
-      }
-      throw new Error(
-        `Error response from ${rpcEndpoint}: ${e.response.status} ${e.response.statusText} ${e.response.data}`)
-    } else {
-      throw new Error(
-        `Could not connect to ${rpcEndpoint}: ${e.message}. This could be: a. geth is not running at this address, b. the port is not accessible, or c. CORS settings on geth do not allow this url (check the developer console for CORS errors)`)
-    }
-  }
+  // } catch (e) {
+  //   if (e.response) {
+  //     if(e.response.status === 401) {
+  //       throw new Error(`401 Unauthorized. Did you include Basic Auth credentials in the URL? (https://username:password@example.com)`)
+  //     }
+  //     throw new Error(
+  //       `Error response from ${rpcEndpoint}: ${e.response.status} ${e.response.statusText} ${e.response.data}`)
+  //   } else {
+  //     throw new Error(
+  //       `Could not connect to ${rpcEndpoint}: ${e.message}. This could be: a. geth is not running at this address, b. the port is not accessible, or c. CORS settings on geth do not allow this url (check the developer console for CORS errors)`)
+  //   }
+  // }
 
   if (tesseraEndpoint !== '') {
     await getPrivateFromOptions(tesseraEndpoint)
