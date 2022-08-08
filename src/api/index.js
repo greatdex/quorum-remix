@@ -39,13 +39,13 @@ export async function testUrls (rpcEndpoint, tesseraEndpoint) {
       const [url, config] = prepareForAxiosCall(rpcEndpoint)
       // test with axios because we get more detailed errors back than web3
       await axios.post(url,
-        { 'jsonrpc': '2.0', 'method': 'eth_protocolVersion', 'params': [] },
+        { 'jsonrpc': '2.0', 'method': 'eth_mining', 'params': [] },
         config)
     }
 
     // test with Web3 because there are slight differences in how it connects
     const testWeb3 = createWeb3(rpcEndpoint)
-    await testWeb3.eth.getProtocolVersion()
+    await testWeb3.eth.getMining()
 
   } catch (e) {
     if (e.response) {
